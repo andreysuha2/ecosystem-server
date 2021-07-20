@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group([ 'prefix' => "auth", "namespace" => "Authenticate"], function () {
+    Route::put("login", "AuthController@login");
+    Route::post("registration", "AuthController@registration");
+    Route::put("logout", "AuthController@logout");
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
