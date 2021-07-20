@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::group([ 'prefix' => "auth", "namespace" => "Authenticate"], function () {
     Route::put("login", "AuthController@login");
     Route::post("registration", "AuthController@registration");
-    Route::put("logout", "AuthController@logout");
+    Route::put("logout", "AuthController@logout")->middleware('auth:sanctum');
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([ 'middleware' => "auth:sanctum" ], function () {
+    Route::group([ 'prefix' => 'user', 'namespace' => 'User' ], function () {
+        Route::get('', "UserController@getUser");
+    });
 });
