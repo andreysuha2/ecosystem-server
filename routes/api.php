@@ -29,7 +29,7 @@ Route::group([ 'middleware' => "auth:sanctum" ], function () {
     });
     Route::group([ 'prefix' => 'finances' ], function () {
         Route::group([ 'prefix' => 'valet', 'namespace' => 'Valet' ], function () {
-            Route::get('{valet_id}');
+            Route::get('{valet_id}', "ValetController@getValet");
         });
     });
 });
