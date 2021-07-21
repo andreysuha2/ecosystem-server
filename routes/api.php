@@ -40,6 +40,17 @@ Route::group([ 'middleware' => "auth:sanctum" ], function () {
                     Route::get('', "ValetController@getValet");
                     Route::put('', "ValetController@updateValet");
                     Route::delete('', "ValetController@deleteValet");
+                    Route::group([ 'prefix' => 'categories' ], function () {
+                        Route::get('', 'CategoriesController@getCategoriesList');
+                        Route::group([ 'prefix' => 'category' ], function () {
+                            Route::post('', "CategoriesController@createCategory");
+                            Route::group([ 'prefix' => '{category}' ], function () {
+                                Route::get('', "CategoryController@getCategory");
+                                Route::put('', "CategoryController@updateCategory");
+                                Route::delete('', "CategoryController@deleteCategory");
+                            });
+                        });
+                    });
                 });
             });
         });

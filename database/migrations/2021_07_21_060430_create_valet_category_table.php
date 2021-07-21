@@ -19,6 +19,7 @@ class CreateValetCategoryTable extends Migration
             $table->bigInteger('author_id');
             $table->string('name');
             $table->text('description');
+            $table->enum('type', [ 'income', 'consumption', 'both' ]);
             $table->timestamps();
             $table->softDeletes();
 

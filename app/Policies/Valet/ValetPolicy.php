@@ -14,6 +14,10 @@ class ValetPolicy
         return $user->valets->contains($valet->id);
     }
 
+    public function create(User $user) {
+        return (boolean) $user->hasVerifiedEmail();
+    }
+
     public function update(User $user, Valet $valet) {
         return $user->valets()
             ->where('valet_id', $valet->id)
@@ -24,5 +28,9 @@ class ValetPolicy
         return $user->valets()
             ->where('valet_id', $valet->id)
             ->wherePivotIn('role', [ 'admin' ])->exists();
+    }
+
+    public function createCategory(User $user, Valet $valet) {
+
     }
 }

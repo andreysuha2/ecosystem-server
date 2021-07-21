@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Valet\Valet;
+use App\Models\Valet\ValetCategory;
+use App\Policies\Valet\CategoryPolicy as ValetCategoryPolicy;
 use App\Policies\Valet\ValetPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -15,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Valet::class => ValetPolicy::class
+        Valet::class => ValetPolicy::class,
+        ValetCategory::class => ValetCategoryPolicy::class
     ];
 
     /**
