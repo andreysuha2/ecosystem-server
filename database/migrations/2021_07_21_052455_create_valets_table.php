@@ -15,10 +15,10 @@ class CreateValetsTable extends Migration
     {
         Schema::create('valets', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
             $table->bigInteger('author_id');
             $table->bigInteger('default_currency_id');
+            $table->string('name');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

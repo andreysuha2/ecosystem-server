@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateValetRecordTable extends Migration
+class CreateValetBalanceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,18 @@ class CreateValetRecordTable extends Migration
      */
     public function up()
     {
-        Schema::create('valet_record', function (Blueprint $table) {
+        Schema::create('valet_balance', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('valet_id');
-            $table->unsignedBigInteger('category_id');
-            $table->bigInteger('author_id');
             $table->bigInteger('currency_id');
-            $table->text('description')->nullable();
+            $table->bigInteger('author_id');
             $table->decimal('value', 11, 2);
-            $table->enum('type', [ 'income', 'consumption' ]);
             $table->dateTime('date');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('valet_id')->references('id')->on('valets')->onDelete('cascade');
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('valet_category')
-                ->onDelete('cascade');
         });
     }
 
@@ -41,6 +35,6 @@ class CreateValetRecordTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('valet_record');
+        Schema::dropIfExists('valet_balance');
     }
 }

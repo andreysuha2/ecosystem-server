@@ -15,9 +15,10 @@ class CreateValetCategoryTable extends Migration
     {
         Schema::create('valet_category', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('valet_id');
+            $table->bigInteger('author_id');
             $table->string('name');
             $table->text('description');
-            $table->unsignedBigInteger('valet_id');
             $table->timestamps();
             $table->softDeletes();
 
