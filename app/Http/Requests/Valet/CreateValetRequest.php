@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests\Valet;
 
-use App\Models\Valet\Valet;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Log;
 
-class ViewValetRequest extends FormRequest
+class CreateValetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,8 +13,7 @@ class ViewValetRequest extends FormRequest
      */
     public function authorize()
     {
-        $valet = $this->route('valet');
-        return $valet && $this->user()->can('view', $valet);
+        return true;
     }
 
     /**
@@ -27,7 +24,12 @@ class ViewValetRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'default_currency' => 'required|exists:currencies,id',
+            'balances' => 'required|array|present',
+            'balances.*.value' => 'required|numeric',
+            'balances.*.currency' => 'required|exists:currencies,id',
+            'balance.*.date' => 'required|date|date_format:Y-m-d H:i:s'
         ];
     }
 }

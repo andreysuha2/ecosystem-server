@@ -40,6 +40,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function valet() {
+        return $this->hasMany(Valet::class, 'author_id', 'id');
+    }
+
     public function valets() {
         return $this->belongsToMany(Valet::class, 'user_valet', 'user_id', 'valet_id');
     }

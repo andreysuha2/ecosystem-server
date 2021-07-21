@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Authenticate\RegistrationRequest;
 use App\Http\Requests\Authenticate\LoginRequest;
 use App\Modes\User;
-use App\Http\Resources\User\UserResource;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -23,7 +22,7 @@ class AuthController extends Controller
 
     public function registration(RegistrationRequest $request) {
         $user = User::create(array_merge($request->toArray(), [ 'password' => Hash::make($request->getPassword()) ]));
-        return new UserResource($user);
+        return response()->json([ 'token' => $user->createToken('user_auth_token')->plainTextToken ]);
     }
 
     public function logout(Request $request) {

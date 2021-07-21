@@ -36,11 +36,11 @@ class RecordResource extends JsonResource
             'description' => $this->description,
             'author' => $this->author ? new UserResource($this->author) : null,
             'category' => $this->when(
-                $includes && (isset($includes['category']) || $includesAll),
+                $includes && (in_array('category', $includes) || $includesAll),
                         new CategoryResource($this->category)
             ),
             'valet' => $this->when(
-                $includes && (isset($includes['valet']) || $includesAll),
+                $includes && (in_array('valet', $includes) || $includesAll),
                 new ValetResource($this->valet)
             ),
             'dates' => [

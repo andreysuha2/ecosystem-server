@@ -35,12 +35,12 @@ class CategoryResource extends JsonResource
             'records' => [
                 'total' => $this->records()->count(),
                 'items' => $this->when(
-                    $includes && (isset($includes['records']) || $includeAll),
+                    $includes && (in_array('records', $includes) || $includeAll),
                     new RecordsCollection($this->records()->get())
                 )
             ],
             'valet' => $this->when(
-                $includes && (isset($includes['valet']) || $includeAll),
+                $includes && (in_array('valet', $includes) || $includeAll),
                 new ValetResource($this->valet)
             ),
             'dates' => [

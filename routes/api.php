@@ -28,8 +28,17 @@ Route::group([ 'middleware' => "auth:sanctum" ], function () {
         Route::get('', "UserController@getUser");
     });
     Route::group([ 'prefix' => 'finances' ], function () {
+        Route::group([ 'prefix' => 'currencies', 'namespace' => "Currency" ], function () {
+            Route::get('list', "CurrencyController@getList");
+            Route::get('currency/{currency_id}', 'CurrencyController@getCurrency');
+        });
         Route::group([ 'prefix' => 'valet', 'namespace' => 'Valet' ], function () {
-            Route::get('{valet_id}', "ValetController@getValet");
+            Route::post('', "ValetController@createValet");
+            Route::group([ 'prefix' => '{valet}' ], function () {
+                Route::get('', "ValetController@getValet");
+                Route::put('', "ValetController@updateValet");
+                Route::delete('', "ValetController@deleteValet");
+            });
         });
     });
 });

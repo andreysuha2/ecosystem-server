@@ -35,33 +35,33 @@ class ValetResource extends JsonResource
             "name" => $this->name,
             "description" => $this->description,
             "author" => $this->author ? new UserResource($this->author) : null,
-            "defaultCurrency" => new CurrencyResource($this->default_currency),
+            "defaultCurrency" => new CurrencyResource($this->defaultCurrency),
             'data' => $this->when($this->withData, [
                 'balances' => [
                     'total' => $this->balances()->count(),
                     'items' => $this->when(
-                        $includes && (isset($includes['balances'])) || $includesAll,
+                        $includes && (in_array('balances', $includes) || $includesAll),
                         new BalancesCollection($this->balances()->get())
                     )
                 ],
                 'records' => [
                     'total' => $this->records()->count(),
                     'items' => $this->when(
-                        $includes && (isset($includes['records'])) || $includesAll,
+                        $includes && (in_array('records', $includes)|| $includesAll),
                         new RecordsCollection($this->records()->get())
                     )
                 ],
                 'categories' => [
                     'total' => $this->categories()->count(),
                     'items' => $this->when(
-                        $includes && (isset($includes['categories'])) || $includesAll,
+                        $includes && (in_array('categories', $includes) || $includesAll),
                         new CategoriesCollection($this->categories()->get())
                     )
                 ],
                 'participants' => [
                     'total' => $this->participants()->count(),
                     'items' => $this->when(
-                        $includes && (isset($includes['participants'])) || $includesAll,
+                        $includes && (in_array('participants', $includes) || $includesAll),
                         new UsersCollection($this->participants()->get())
                     )
                 ]

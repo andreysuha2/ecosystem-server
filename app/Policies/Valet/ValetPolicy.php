@@ -11,6 +11,6 @@ class ValetPolicy
     use HandlesAuthorization;
 
     public function view(User $user, Valet $valet) {
-        return $user->valets->contains($valet);
+        return $user->valets->contains($valet->id);
     }
 }
