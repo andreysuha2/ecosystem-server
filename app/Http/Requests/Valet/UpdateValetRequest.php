@@ -4,7 +4,7 @@ namespace App\Http\Requests\Valet;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ViewValetRequest extends FormRequest
+class UpdateValetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class ViewValetRequest extends FormRequest
     public function authorize()
     {
         $valet = $this->route('valet');
-        return $valet && $this->user()->can('view', $valet);
+        return $valet && $this->user()->can('update', $valet);
     }
 
     /**
@@ -25,7 +25,6 @@ class ViewValetRequest extends FormRequest
     public function rules()
     {
         return [
-            //
         ];
     }
 }

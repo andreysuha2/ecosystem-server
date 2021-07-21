@@ -32,12 +32,15 @@ Route::group([ 'middleware' => "auth:sanctum" ], function () {
             Route::get('list', "CurrencyController@getList");
             Route::get('currency/{currency_id}', 'CurrencyController@getCurrency');
         });
-        Route::group([ 'prefix' => 'valet', 'namespace' => 'Valet' ], function () {
-            Route::post('', "ValetController@createValet");
-            Route::group([ 'prefix' => '{valet}' ], function () {
-                Route::get('', "ValetController@getValet");
-                Route::put('', "ValetController@updateValet");
-                Route::delete('', "ValetController@deleteValet");
+        Route::group([ 'prefix' => 'valets', 'namespace' => 'Valet' ], function () {
+            Route::get('', "ValetController@getValetsList");
+            Route::group([ 'prefix' => 'valet' ], function () {
+                Route::post('', "ValetController@createValet");
+                Route::group([ 'prefix' => '{valet}' ], function () {
+                    Route::get('', "ValetController@getValet");
+                    Route::put('', "ValetController@updateValet");
+                    Route::delete('', "ValetController@deleteValet");
+                });
             });
         });
     });

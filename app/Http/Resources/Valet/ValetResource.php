@@ -6,6 +6,7 @@ use App\Http\Resources\Currency\CurrencyResource;
 use App\Http\Resources\User\UserResource;
 use App\Http\Resources\User\UsersCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class ValetResource extends JsonResource
 {
@@ -66,6 +67,11 @@ class ValetResource extends JsonResource
                     )
                 ]
             ]),
+            "permissions" => [
+                "view" => Auth::user()->can('view', $this->resource),
+                "update" => Auth::user()->can('update', $this->resource),
+                "delete" => Auth::user()->can('delete', $this->resource)
+            ],
             "dates" => [
                 "createdAt" => $this->created_at->toJSON(),
                 "updatedAt" => $this->updated_at->toJSON()
